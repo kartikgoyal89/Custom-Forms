@@ -1,0 +1,30 @@
+{
+    "buttonText": {
+      "label": "Button",
+      "defaultValue": "Submit",
+      "isHeading": true,
+      "headingIcon": "IoRadioButtonOnSharp"
+    },
+    "fontSize": {
+      "label": "Font Size",
+      "defaultValue": 20,
+      "type": "number"
+    },
+    "height": {
+      "label": "Height",
+      "defaultValue": 42,
+      "type": "number"
+    },
+    "bold": {
+      "label": "Boldness",
+    "icon": "FaBold",
+    "type": "button",
+    "value": "B"
+    },
+    "italic": {
+      "label": "Font Italic",
+    "icon": "FaItalic",
+    "type": "button",
+    "value": "I"
+    }
+  }

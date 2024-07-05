@@ -1,0 +1,13 @@
+.name-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.name-container p{
+    margin-bottom: 0;
+}
+
+.name-container .first-name,
+.name-container .last-name{
+    width: 48%;
+}

@@ -1,0 +1,25 @@
+{
+    "inputText": {
+      "label": "Short Text",
+      "isHeading": true,
+      "headingIcon": "FiFileText",
+      "type": "none"
+    },
+    "fieldLabel": {
+      "label": "Field-Label",
+      "defaultValue": "Short Text",
+      "column": "column",
+      "paragraph": "Type your question. Use @ to recall answer from previous question."
+    },
+    "placeholderText": {
+      "label": "Placeholder Text",
+      "defaultValue": "Type your answer here...",
+      "column": "column"
+    },
+    "required": {
+      "label": "Required",
+      "type": "toggle",
+      "defaultValue": "off"
+    }
+  }
+  

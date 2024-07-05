@@ -1,0 +1,25 @@
+{
+    "inputText": {
+      "label": "Number",
+      "isHeading": true,
+      "headingIcon": "TbNumbers",
+      "type": "none"
+    },
+    "fieldLabel": {
+      "label": "Field-Label",
+      "defaultValue": "Number",
+      "column": "column",
+      "paragraph": "Type your question. Use @ to recall answer from previous question."
+    },
+    "placeholderText": {
+      "label": "Placeholder Text",
+      "defaultValue": "Enter your Value",
+      "column": "column"
+    },
+    "required": {
+      "label": "Required",
+      "type": "toggle",
+      "defaultValue": "off"
+    }
+  }
+  

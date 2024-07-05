@@ -1,0 +1,26 @@
+{
+    "inputText": {
+      "label": "Long Text",
+      "isHeading": true,
+      "headingIcon": "FiFileText",
+      "type": "none"
+    },
+    "fieldLabel": {
+      "label": "Field-Label",
+      "defaultValue": "Long Text",
+      "column": "column",
+      "paragraph": "Type your question. Use @ to recall answer from previous question."
+    },
+    "placeholderText": {
+      "label": "Placeholder Text",
+      "defaultValue": "Type your answer here...",
+      "column": "column",
+      "type": "textarea"
+    },
+    "required": {
+      "label": "Required",
+      "type": "toggle",
+      "defaultValue": "off"
+    }
+  }
+  

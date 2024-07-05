@@ -1,0 +1,25 @@
+{
+    "inputText": {
+      "label": "Email",
+      "isHeading": true,
+      "headingIcon": "TfiEmail",
+      "type": "none"
+    },
+    "fieldLabel": {
+      "label": "Field-Label",
+      "defaultValue": "Email",
+      "column": "column",
+      "paragraph": "Type your question. Use @ to recall answer from previous question."
+    },
+    "placeholderText": {
+      "label": "Placeholder Text",
+      "defaultValue": "example@example.com",
+      "column": "column"
+    },
+    "required": {
+      "label": "Required",
+      "type": "toggle",
+      "defaultValue": "off"
+    }
+  }
+  

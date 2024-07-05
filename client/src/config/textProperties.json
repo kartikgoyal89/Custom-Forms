@@ -1,0 +1,33 @@
+{
+    "inputText": {
+      "label": "Text",
+      "defaultValue": "Add a short paragraph",
+      "isHeading": true,
+      "headingIcon": "PiTextTBold"
+    },
+    "fontSize": {
+      "label": "Font Size",
+      "defaultValue": 15,
+      "type": "number",
+      "max": "25",
+      "min": "12"
+    },
+    "color": {
+    "label": "Font Color",
+    "type": "color",
+    "value": "#000000"
+  },
+    "bold": {
+      "label": "Boldness",
+      "icon": "FaBold",
+      "type": "button",
+      "value": "B"
+    },
+    "italic": {
+      "label": "Font Italic",
+      "icon": "FaItalic",
+      "type": "button",
+      "value": "I"
+    }
+  }
+  

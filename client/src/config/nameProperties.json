@@ -1,0 +1,50 @@
+{
+    "inputText": {
+      "label": "Name",
+      "isHeading": true,
+      "headingIcon": "AiOutlineUser",
+      "type": "none"
+    },
+    "fieldLabel": {
+      "label": "Field-Label",
+      "defaultValue": "Name",
+      "column": "column",
+      "paragraph": "Type your question. Use @ to recall answer from previous question."
+    },
+    "required": {
+      "label": "Required",
+      "type": "toggle",
+      "defaultValue": "off"
+    },
+    "subHeading": {
+      "label": "Sub-Labels",
+      "type": "none"
+    },
+    "firstNameInput": {
+      "label": "First Name",
+      "defaultValue": "First Name",
+      "column": "column",
+      "paragraph": "Type your question. Use @ to recall answer from previous question."
+    },
+    "lastNameInput": {
+      "label": "Last Name",
+      "defaultValue": "Last Name",
+      "column": "column",
+      "paragraph": "Type your question. Use @ to recall answer from previous question."
+    },
+    "subHeadingPlaceholder": {
+      "label": "Placeholders",
+      "type": "none"
+    },
+    "firstPlaceholder": {
+      "label": "First Name",
+      "defaultValue": "First Name",
+      "column": "column"
+    },
+    "lastPlaceholder": {
+      "label": "Last Name",
+      "defaultValue": "Last Name",
+      "column": "column"
+    }
+  }
+  

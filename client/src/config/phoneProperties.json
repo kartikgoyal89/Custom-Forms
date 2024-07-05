@@ -1,0 +1,25 @@
+{
+    "inputText": {
+      "label": "Phone",
+      "isHeading": true,
+      "headingIcon": "TfiEmail",
+      "type": "none"
+    },
+    "fieldLabel": {
+      "label": "Field-Label",
+      "defaultValue": "Phone",
+      "column": "column",
+      "paragraph": "Type your question. Use @ to recall answer from previous question."
+    },
+    "placeholderText": {
+      "label": "Placeholder Text",
+      "defaultValue": "091234 56789",
+      "column": "column"
+    },
+    "required": {
+      "label": "Required",
+      "type": "toggle",
+      "defaultValue": "off"
+    }
+  }
+  
