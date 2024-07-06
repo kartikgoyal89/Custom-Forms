@@ -42,12 +42,15 @@ const Phone = ({
     onClick(id);
   };
   return (
-    <div className="hover-outline" onClick={handleShortTextClick}>
-      <PhoneInput
-        placeholder="Enter phone number"
-        value={value}
-        onChange={setValue}
-      />
+    <div
+      className="hover-outline phone-container"
+      onClick={handleShortTextClick}
+    >
+      <h6 className={`mb-3 ${style?.required ? "required" : ""}`}>
+        {style?.fieldLabel !== undefined ? style?.fieldLabel : "Phone"}
+        {elementStyle.required && <span style={{ color: "red" }}> *</span>}
+      </h6>
+      <PhoneInput onChange={setValue} />
     </div>
   );
 };

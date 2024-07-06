@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useItems } from "../../context/itemContext.jsx";
-import "./shortText.css";
+import "./link.css";
 
-const ShortText = ({
+const Link = ({
   id,
   onBlur,
   onFocus,
@@ -16,7 +16,6 @@ const ShortText = ({
   const handleShortTextClick = () => {
     onClick(id);
   };
-
   const defaultShortTextStyle = {
     fontSize: "20px",
     fontWeight: "normal",
@@ -42,14 +41,14 @@ const ShortText = ({
 
   return (
     <div
-      className={`hover-outline short-text-container ${
+      className={`hover-outline short-text-container link-container ${
         isSelected ? "active" : ""
       }`}
       onClick={handleShortTextClick}
       style={{ cursor: "pointer" }}
     >
       <h6 className={`mb-3 ${style?.required ? "required" : ""}`}>
-        {style?.fieldLabel !== undefined ? style?.fieldLabel : "Short Text"}
+        {style?.fieldLabel !== undefined ? style?.fieldLabel : "Link"}
         {elementStyle.required && <span style={{ color: "red" }}> *</span>}
       </h6>
       <input
@@ -58,7 +57,7 @@ const ShortText = ({
         placeholder={
           style?.placeholderText !== undefined
             ? style?.placeholderText
-            : "Type your answer here..."
+            : "http://www.former.com"
         }
         readOnly
         value={style?.defaultVal}
@@ -68,4 +67,4 @@ const ShortText = ({
   );
 };
 
-export default ShortText;
+export default Link;

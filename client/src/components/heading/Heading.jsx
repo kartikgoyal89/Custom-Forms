@@ -56,7 +56,9 @@ const Heading = ({ id, style, headingText, onClick, isSelected }) => {
           cursor: "pointer",
         }}
       >
-        {style?.headingText === undefined ? "Form Header" : style?.headingText}
+        {style?.headingInput === undefined
+          ? "Form Header"
+          : style?.headingInput}
       </h1>
     </div>
   );

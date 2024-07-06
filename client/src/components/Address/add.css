@@ -1,0 +1,21 @@
+.address-container{
+    outline: none;
+}
+.address-input-container{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+.other{
+    flex: 1;
+    display: flex;
+    margin-right: 10px;
+}
+
+.other .city{
+    flex: 1;
+    margin-right: 10px;
+}
+.other .city.last{
+    margin-right: 0px;
+}

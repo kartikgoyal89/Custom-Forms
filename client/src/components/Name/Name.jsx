@@ -14,6 +14,7 @@ const Name = ({
   firstPlaceholder,
   lastPlaceholder,
   onClick,
+  selectedFields,
 }) => {
   const { items } = useItems();
   const handleShortTextClick = () => {
@@ -30,18 +31,11 @@ const Name = ({
     placeholderText: "Type your answer here...",
     toggle: false,
   };
-  useEffect(() => {
-    items.forEach((item) => {
-      if (item?.type === "short-text" && !item.style) {
-        item.style = { ...defaultNameStyle };
-      }
-    });
-  }, []);
   const elementStyle = { ...defaultNameStyle, ...style };
 
   return (
     <div
-      className={`hover-outline short-text-container ${
+      className={`hover-outline short-text-container name-input-container ${
         isSelected ? "active" : ""
       }`}
       onClick={handleShortTextClick}
@@ -61,6 +55,7 @@ const Name = ({
           </p>
           <input
             type="text"
+            readOnly
             placeholder={
               style?.firstPlaceholder !== undefined
                 ? style?.firstPlaceholder
@@ -77,6 +72,7 @@ const Name = ({
           </p>
           <input
             type="text"
+            readOnly
             placeholder={
               style?.lastPlaceholder !== undefined
                 ? style?.lastPlaceholder

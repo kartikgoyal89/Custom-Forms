@@ -9,7 +9,7 @@
   cursor: pointer;
 }
 
-.btn.active-btn{
+.btn_.active-btn{
   background-color: rgb(1,163,254);
   border: none !important;
   color: white;

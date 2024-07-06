@@ -1,0 +1,31 @@
+.phone-container{
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.PhoneInput{
+    height: 50px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+input.PhoneInputInput{
+    margin-bottom: 0 !important;
+    height: 45px !important;
+}
+.PhoneInputCountryIcon{
+    width: 40px !important;
+    height: 40px !important;
+    border: none !important;
+}
+.PhoneInputCountryIconImg{
+    width: 40px !important;
+    height: 40px !important;
+}
+.PhoneInputCountryIcon--border{
+    background-color: transparent !important;
+    box-shadow: none !important;
+}
