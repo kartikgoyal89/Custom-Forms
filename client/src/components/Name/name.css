@@ -1,13 +1,23 @@
 .name-container{
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    width: 100%;
 }
 .name-container p{
     margin-bottom: 0;
 }
 
-.name-container .first-name,
-.name-container .last-name{
-    width: 48%;
+.name{
+    flex: 1;
+    margin-right: 10px;
+}
+.last-name{
+    margin-right: 0px;
+}
+.name-input-container{
+    outline: none;
+}
+
+.name.hidden{
+    display: none !important;
 }

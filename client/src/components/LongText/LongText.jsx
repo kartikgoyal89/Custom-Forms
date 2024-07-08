@@ -39,7 +39,7 @@ const LongText = ({
 
   return (
     <div
-      className={`hover-outline short-text-container ${
+      className={`hover-outline short-text-container long-text-container ${
         isSelected ? "active" : ""
       }`}
       onClick={handleShortTextClick}
@@ -51,13 +51,16 @@ const LongText = ({
       </h6>
       <textarea
         type="text"
-        rows="6"
+        rows={style?.inputHeight !== undefined ? style?.inputHeight : "6"}
         className="w-100 input-textarea"
         placeholder={
           style?.placeholderText !== undefined
             ? style?.placeholderText
             : "Type your answer here..."
         }
+        max={style?.maxChar}
+        min={style?.minChar}
+        value={style?.defaultVal}
         readOnly
         required={style?.required}
       />

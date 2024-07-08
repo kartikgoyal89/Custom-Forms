@@ -1,8 +1,8 @@
 {
     "inputText": {
-      "label": "Short Text",
+      "label": "Link",
       "isHeading": true,
-      "headingIcon": "FiFileText",
+      "headingIcon": "FaLink",
       "type": "heading",
       "designType": "head"
     },
@@ -14,7 +14,7 @@
   },
     "fieldLabel": {
       "label": "Field-Label",
-      "defaultValue": "Short Text",
+      "defaultValue": "Link",
       "column": "column",
       "paragraph": "Type your question. Use @ to recall answer from previous question.",
       "designType": "general",
@@ -22,7 +22,7 @@
     },
     "placeholderText": {
       "label": "Placeholder Text",
-      "defaultValue": "Type your answer here...",
+      "defaultValue": "http://www.former.com",
       "column": "column",
       "designType": "general",
       "type": "input"

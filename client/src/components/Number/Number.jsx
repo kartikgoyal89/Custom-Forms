@@ -39,7 +39,7 @@ const Number = ({
 
   return (
     <div
-      className={`hover-outline short-text-container ${
+      className={`hover-outline short-text-container number-container ${
         isSelected ? "active" : ""
       }`}
       onClick={handleShortTextClick}
@@ -58,6 +58,9 @@ const Number = ({
             : "Enter your Value"
         }
         readOnly
+        value={style?.defaultVal}
+        min={style?.minChar}
+        max={style?.maxChar}
         required={style?.required}
       />
     </div>

@@ -40,7 +40,7 @@ const Email = ({
   }, []);
   return (
     <div
-      className={`hover-outline short-text-container ${
+      className={`hover-outline short-text-container email-container ${
         isSelected ? "active" : ""
       }`}
       onClick={handleShortTextClick}
@@ -59,6 +59,7 @@ const Email = ({
             : "example@example.com"
         }
         readOnly
+        value={style?.defaultVal}
         required={style?.required}
       />
     </div>

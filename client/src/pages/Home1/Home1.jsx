@@ -13,6 +13,8 @@ import Number from "../../components/Number/Number";
 import Name from "../../components/Name/Name";
 import Email from "../../components/Email/Email";
 import Phone from "../../components/Phone/Phone";
+import Link from "../../components/Link/Link";
+import Address from "../../components/Address/Address";
 
 import ColorPicker from "../../components/ColorPicker/ColorPicker";
 import Collapsible from "react-collapsible";
@@ -44,6 +46,8 @@ import numberProperties from "../../config/numberProperties.json";
 import nameProperties from "../../config/nameProperties.json";
 import emailProperties from "../../config/emailProperties.json";
 import phoneProperties from "../../config/phoneProperties.json";
+import linkProperties from "../../config/linkProperties.json";
+import addressProperties from "../../config/addressProperties.json";
 
 import Accordion from "../../components/Accordion/Accordion";
 
@@ -61,18 +65,12 @@ const Home1 = () => {
   const [formColor, setFormColor] = useState("#FFFFFF");
   const [buttonColor, setButtonColor] = useState("");
 
-  // SLIDE STATE
   const [slide, setSlide] = useState("hide");
-  // TOGGLE STATE
-  const [isToggled, setIsToggled] = useState(false);
 
-  // COLOR STATE
   const [slideColor, setSlideColor] = useState("#000000");
 
-  // DESIGN STATE
-  const [activeTab, setActiveTab] = useState("general");
+  const [displayToggle, setDisplayToggle] = useState(false);
 
-  // SUBMIT BUTTON STATE
   const [submit, setSubmit] = useState("Submit");
   const [btnHeight, setBtnHeight] = useState(42);
   const [btnFontSize, setBtnFontSize] = useState(20);
@@ -88,12 +86,17 @@ const Home1 = () => {
     text: "Submit",
   });
 
-  // ==================================================================
+  // =========s=========================================================
   // MAIN STYLING
   const [mainId, setMainId] = useState(null);
   const [mainType, setMainType] = useState("");
   const [mainText, setMainText] = useState("");
   const [mainStyle, setMainStyle] = useState({});
+  const [design, setDesign] = useState("general");
+  const [activeTab, setActiveTab] = useState("general");
+
+  const [visibleArray, setVisibleArray] = useState([]);
+
   // ==================================================================
 
   //BUTTON PROPERTIES
@@ -119,6 +122,8 @@ const Home1 = () => {
     setSlide("show");
     setMainType("button");
     setMainId(0);
+    setActiveTab("general");
+    setDesign("general");
     setMainText(submit ? submit : "Submit");
     ({
       backgroundColor: primaryColor,
@@ -139,6 +144,8 @@ const Home1 = () => {
       }
     });
     setSlide("show");
+    setActiveTab("general");
+    setDesign("general");
   };
 
   const handleStyleChange = (id, name, value) => {
@@ -161,10 +168,6 @@ const Home1 = () => {
     }
   };
 
-  useEffect(() => {
-    console.log(items);
-  }, [items]);
-
   const iconComponents = {
     FaHeading: FaHeading,
     FaBold: FaBold,
@@ -175,74 +178,178 @@ const Home1 = () => {
     TbNumbers: TbNumbers,
     AiOutlineUser: AiOutlineUser,
     TfiEmail: TfiEmail,
-  };
-
-  const handleChange = () => {
-    setIsToggled(!isToggled);
+    LuPhone: LuPhone,
+    FaLink: FaLink,
+    PiMapPinBold: PiMapPinBold,
   };
 
   const renderProperties = (properties, id) => {
     const element = items.find((item) => item.id === id);
-
-    return Object.keys(properties).map((key) => {
+    return Object.keys(properties).map((key, index) => {
       const property = properties[key];
       const IconComponent = iconComponents[property.headingIcon];
+
+      if (property.type === "none") {
+        return (
+          <div key={key} className="row-wrapper">
+            <div className="property" style={{ flex: 1 }}>
+              <div
+                className="w-100 d-flex justify-content-between"
+                style={{ padding: "5px 10px" }}
+              >
+                <div className="heading">
+                  <div className="icon">
+                    {IconComponent && <IconComponent />}
+                  </div>
+                  <label
+                    className={`${
+                      property.isHeading && property.type === "heading"
+                        ? "heading-label"
+                        : ""
+                    }`}
+                  >
+                    {property.label}
+                  </label>
+                </div>
+                <RxCross2
+                  className={`${
+                    property.isHeading ? "heading-cross" : "display-none"
+                  }`}
+                  onClick={() => {
+                    setSlide("hide");
+                    setTimeout(() => {
+                      setDesign("general");
+                      setActiveTab("general");
+                    }, 200);
+                  }}
+                />
+              </div>
+              <hr className={`${property.isHeading ? "hr" : "display-none"}`} />
+            </div>
+            {index < Object.keys(properties).length - 1 &&
+              properties[Object.keys(properties)[index + 1]].type ===
+                "none" && (
+                <div className="property" style={{ flex: 1 }}>
+                  <div
+                    className="w-100 d-flex justify-content-between"
+                    style={{ padding: "5px 10px" }}
+                  >
+                    <div className="heading">
+                      <div className="icon">
+                        {IconComponent && <IconComponent />}
+                      </div>
+                      <label
+                        className={`${
+                          property.isHeading ? "heading-label" : ""
+                        }`}
+                      >
+                        {property.label}
+                      </label>
+                    </div>
+                    <RxCross2
+                      className={`${
+                        property.isHeading ? "heading-cross" : "display-none"
+                      }`}
+                      onClick={() => {
+                        setSlide("hide");
+                        setDesign("general");
+                        setActiveTab("general");
+                      }}
+                    />
+                  </div>
+                </div>
+              )}
+          </div>
+        );
+      }
+
       return (
         <div
           key={key}
+          className={`max-height px-2 ${
+            property?.designType === design || property?.designType === "head"
+              ? ""
+              : "display-none"
+          }`}
           style={
-            property?.column === "column"
+            property.column === "column"
               ? {
                   display: "flex",
                   flexDirection: "column",
                   alignItems: "start",
+                  verticalAlign: "middle",
                 }
-              : {}
+              : property?.designType === design ||
+                property?.designType === "head"
+              ? {}
+              : { display: "none" }
           }
         >
           <div
-            className={`${property?.isHeading ? "element-heading" : "element"}`}
+            className={`${property.isHeading ? "element-heading" : "element"}`}
           >
-            <div className="heading">
-              <div className="icon">{IconComponent && <IconComponent />}</div>
-              <label
-                className={`${property?.isHeading ? "heading-label" : ""}`}
-              >
-                {property.label}
-              </label>
-            </div>
-            <RxCross2
+            <div
               className={`${
-                property?.isHeading ? "heading-cross" : "display-none"
+                property?.isHeading
+                  ? "w-100 d-flex justify-content-between"
+                  : ""
               }`}
-              onClick={() => setSlide("hide")}
-            />
+              style={property?.isHeading ? { padding: "5px 10px" } : {}}
+            >
+              <div className="heading">
+                <div className="icon">{IconComponent && <IconComponent />}</div>
+                <label
+                  className={`${
+                    property.isHeading
+                      ? "heading-label"
+                      : property?.designType === design
+                      ? ""
+                      : "display-none"
+                  }`}
+                >
+                  {property.label}
+                </label>
+              </div>
+              <RxCross2
+                className={`${
+                  property.isHeading ? "heading-cross" : "display-none"
+                }`}
+                onClick={() => {
+                  setSlide("hide");
+                  setTimeout(() => {
+                    setDesign("general");
+                    setActiveTab("general");
+                  }, 200);
+                }}
+              />
+            </div>
+            <hr className={`${property.isHeading ? "hr" : "display-none"}`} />
           </div>
-          <hr className={`${property?.isHeading ? "hr" : "display-none"}`} />
-          {property.type === "number" ? (
+          {property.type === "number" && property?.designType === design ? (
             <input
               type="number"
-              max={property?.max ? property?.max : 10000}
-              min={property?.min ? property?.min : 0}
+              className={`${property?.column === "column" ? "w-100" : ""}`}
+              max={property.max ? property.max : 10000}
+              min={property.min ? property.min : 0}
               defaultValue={
                 parseInt(element?.style?.[key]) === undefined
                   ? parseInt(element?.style?.[key])
-                  : property?.defaultValue
+                  : property.defaultValue
               }
               onChange={(e) => handleStyleChange(id, key, e.target.value)}
             />
-          ) : property.type === "button" ? (
+          ) : property.type === "button" && property?.designType === design ? (
             <button
-              className={`btn ${
+              className={`btn_ ${
                 element?.style?.[key] === true ? "active-btn" : ""
               }`}
-              onClick={(prevState) => {
+              onClick={() => {
                 handleStyleChange(id, key, !element?.style?.[key]);
               }}
             >
               {property.value}
             </button>
-          ) : property.type === "color" ? (
+          ) : property.type === "color" && property?.designType === design ? (
             <div className="color-input-div">
               <input
                 className="color-input"
@@ -255,21 +362,17 @@ const Home1 = () => {
               />
               <p className="mb-0">{slideColor}</p>
             </div>
-          ) : property?.type === "none" ? (
-            <></>
-          ) : property.type === "toggle" ? (
-            <>
-              <label class="switch">
-                <input
-                  type="checkbox"
-                  onChange={() => {
-                    handleStyleChange(id, key, !element?.style?.[key]);
-                  }}
-                />
-                <span class="slider round"></span>
-              </label>
-            </>
-          ) : (
+          ) : property.type === "toggle" && property?.designType === design ? (
+            <label className="switch">
+              <input
+                type="checkbox"
+                onChange={() => {
+                  handleStyleChange(id, key, !element?.style?.[key]);
+                }}
+              />
+              <span className="slider round"></span>
+            </label>
+          ) : property.type === "input" && property?.designType === design ? (
             <input
               className="input-text"
               type="text"
@@ -277,7 +380,102 @@ const Home1 = () => {
               value={element?.style?.[key]}
               onChange={(e) => handleStyleChange(id, key, e.target.value)}
             />
-          )}
+          ) : property.type === "design" ? (
+            <div className="w-100 d-flex flex-column align-items-start justify-content-start cursor-pointer">
+              <div className="d-flex gap-20 design-tab">
+                <p
+                  className={`mb-0 ${
+                    design === "general" ? "active-design" : ""
+                  }`}
+                  onClick={() => {
+                    setDesign("general");
+                    setActiveTab("general");
+                  }}
+                >
+                  {property?.label1}
+                </p>
+                {property?.label2 && (
+                  <p
+                    className={`mb-0 ${
+                      design === "advanced" ? "active-design" : ""
+                    }`}
+                    onClick={() => {
+                      setDesign("advanced");
+                      setActiveTab("advanced");
+                    }}
+                  >
+                    {property?.label2}
+                  </p>
+                )}
+              </div>
+              <hr className="m-0 mt-0" />
+            </div>
+          ) : property?.type === "textarea" &&
+            property?.designType === design ? (
+            <textarea
+              className="input-textarea mt-2 mb-2"
+              cols="33"
+              rows="5"
+              defaultValue={property.defaultValue}
+              value={element?.style?.[key]}
+              onChange={(e) => handleStyleChange(id, key, e.target.value)}
+            ></textarea>
+          ) : property.type === "option" && property?.designType === design ? (
+            <>
+              <div className="w-100">
+                {Object.values(property.options).map((option, optionKey) => {
+                  {
+                    let Obj = {
+                      id: option.id,
+                      value: option.value,
+                      checked: option.checked,
+                    };
+                  }
+                  return (
+                    <div
+                      key={optionKey}
+                      className="d-flex w-100 align-items-center gap-20"
+                    >
+                      <input
+                        style={{ width: "20px" }}
+                        type="checkbox"
+                        value={option}
+                        defaultChecked={option.checked}
+                        onClick={() => {
+                          setDisplayToggle(!displayToggle);
+                          setVisibleArray((prevArray) => {
+                            const index = prevArray.findIndex(
+                              (item) => item.id === option.id
+                            );
+
+                            if (index !== -1) {
+                              const updatedArray = [...prevArray];
+                              updatedArray[index] = {
+                                id: option.id,
+                                checked: !prevArray[index].checked,
+                                value: option.value,
+                              };
+                              return updatedArray;
+                            } else {
+                              return [
+                                ...prevArray,
+                                {
+                                  id: option.id,
+                                  checked: !option.checked,
+                                  value: option.value,
+                                },
+                              ];
+                            }
+                          });
+                        }}
+                      />
+                      <label>{option?.label}</label>
+                    </div>
+                  );
+                })}
+              </div>
+            </>
+          ) : null}
         </div>
       );
     });
@@ -326,6 +524,10 @@ const Home1 = () => {
                       style={item.style || {}}
                       isSelected={mainId === item.id}
                       text={item.text}
+                      height={item?.height}
+                      defaultVal={item?.defaultVal}
+                      minChar={item?.minChar}
+                      maxChar={item?.maxChar}
                     />
                   ) : item?.type === "short-text" ? (
                     <ShortText
@@ -336,6 +538,7 @@ const Home1 = () => {
                       isSelected={mainId === item.id}
                       text={item.text}
                       placeholderText={item.text}
+                      defaultVal={item?.defaultVal}
                     />
                   ) : item?.type === "number" ? (
                     <Number
@@ -346,6 +549,9 @@ const Home1 = () => {
                       isSelected={mainId === item.id}
                       text={item.text}
                       placeholderText={item.text}
+                      defaultVal={item?.defaultVal}
+                      minChar={item?.minChar}
+                      maxChar={item?.maxChar}
                     />
                   ) : item?.type === "email" ? (
                     <Email
@@ -369,8 +575,9 @@ const Home1 = () => {
                       lastNameInput={item.text}
                       firstPlaceholder={item.text}
                       lastPlaceholder={item.text}
+                      VisibleOptions={visibleArray}
                     />
-                  ) : (
+                  ) : item?.type === "phone" ? (
                     <Phone
                       id={item.id}
                       key={item.id}
@@ -379,6 +586,29 @@ const Home1 = () => {
                       isSelected={mainId === item.id}
                       text={item.text}
                       placeholderText={item.text}
+                    />
+                  ) : item?.type === "link" ? (
+                    <Link
+                      id={item.id}
+                      key={item.id}
+                      onClick={() => setTheProperties(item.id)}
+                      style={item.style || {}}
+                      isSelected={mainId === item.id}
+                      text={item.text}
+                      placeholderText={item.text}
+                      defaultVal={item?.defaultVal}
+                    />
+                  ) : (
+                    <Address
+                      id={item.id}
+                      key={item.id}
+                      onClick={() => setTheProperties(item.id)}
+                      style={item.style || {}}
+                      isSelected={mainId === item.id}
+                      text={item.text}
+                      placeholderText={item.text}
+                      defaultVal={item?.defaultVal}
+                      VisibleOptions={visibleArray}
                     />
                   )
                 )}
@@ -447,6 +677,9 @@ const Home1 = () => {
                 renderProperties(emailProperties, mainId)}
               {mainType === "phone" &&
                 renderProperties(phoneProperties, mainId)}
+              {mainType === "link" && renderProperties(linkProperties, mainId)}
+              {mainType === "address" &&
+                renderProperties(addressProperties, mainId)}
             </div>
           </div>
         </div>
