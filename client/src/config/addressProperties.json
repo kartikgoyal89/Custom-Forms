@@ -116,38 +116,44 @@
       "type": "option",
       "column": "column",
       "designType": "advanced",
-      "options": {
-        "opt1": {
+      "options": [
+        {
+          "id": 1,
           "label": "Street Address",
           "value": "street1",
           "checked": true
         },
-        "opt2": {
+        {
+          "id": 2,
           "label": "Street Address line 2",
           "value": "street2",
           "checked": true
         },
-        "opt3": {
+        {
+          "id": 3,
           "label": "City",
           "value": "city",
           "checked": true
         },
-        "opt4": {
+        {
+          "id": 4,
           "label": "State/Province",
           "value": "state",
           "checked": true
         },
-        "opt5": {
+        {
+          "id": 5,
           "label": "Postal/Zip Code",
           "value": "postal",
           "checked": true
         },
-        "opt6": {
+        {
+          "id": 6,
           "label": "Country",
           "value": "country",
           "checked": true 
         }
-      }
+      ]
     }
   }
   

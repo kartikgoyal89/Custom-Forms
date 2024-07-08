@@ -1,5 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useItems } from "../../context/itemContext.jsx";
+import nameProperties from "../../config/nameProperties.json";
 import "./name.css";
 
 const Name = ({
@@ -14,12 +15,19 @@ const Name = ({
   firstPlaceholder,
   lastPlaceholder,
   onClick,
-  selectedFields,
+  VisibleOptions,
 }) => {
+  const [visibleElements, setVisibleElements] = useState({
+    firstName: true,
+    middleName: false,
+    lastName: true,
+    // Add more fields as needed
+  });
   const { items } = useItems();
   const handleShortTextClick = () => {
     onClick(id);
   };
+
   const defaultNameStyle = {
     fontSize: "20px",
     fontWeight: "normal",
@@ -32,6 +40,19 @@ const Name = ({
     toggle: false,
   };
   const elementStyle = { ...defaultNameStyle, ...style };
+
+  useEffect(() => {
+    // Update visibleElements state based on VisibleOptions
+    const updatedVisibleElements = {
+      ...visibleElements,
+    };
+    VisibleOptions.forEach((opt) => {
+      if (updatedVisibleElements.hasOwnProperty(opt.value)) {
+        updatedVisibleElements[opt.value] = opt.checked;
+      }
+    });
+    setVisibleElements(updatedVisibleElements);
+  }, [VisibleOptions]);
 
   return (
     <div
@@ -46,7 +67,11 @@ const Name = ({
         {elementStyle.required && <span style={{ color: "red" }}> *</span>}
       </h6>
       <div className="name-container">
-        <div className="first-name">
+        <div
+          className={`name ${
+            visibleElements.firstName === false ? "hidden" : ""
+          }`}
+        >
           <p>
             {style?.firstNameInput !== undefined
               ? style?.firstNameInput
@@ -56,6 +81,7 @@ const Name = ({
           <input
             type="text"
             readOnly
+            required={style?.required}
             placeholder={
               style?.firstPlaceholder !== undefined
                 ? style?.firstPlaceholder
@@ -63,7 +89,33 @@ const Name = ({
             }
           />
         </div>
-        <div className="last-name">
+        <div
+          className={`name ${
+            visibleElements.middleName === false ? "hidden" : ""
+          }`}
+        >
+          <p>
+            {style?.middleNameInput !== undefined
+              ? style?.lastNameInput
+              : "Middle Name"}
+            {elementStyle.required && <span style={{ color: "red" }}> *</span>}
+          </p>
+          <input
+            type="text"
+            readOnly
+            required={style?.required}
+            placeholder={
+              style?.middlePlaceholder !== undefined
+                ? style?.middlePlaceholder
+                : "Middle Name"
+            }
+          />
+        </div>
+        <div
+          className={`name last-name ${
+            visibleElements.lastName === false ? "hidden" : ""
+          }`}
+        >
           <p>
             {style?.lastNameInput !== undefined
               ? style?.lastNameInput
@@ -73,6 +125,7 @@ const Name = ({
           <input
             type="text"
             readOnly
+            required={style?.required}
             placeholder={
               style?.lastPlaceholder !== undefined
                 ? style?.lastPlaceholder

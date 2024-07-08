@@ -7,8 +7,7 @@
     margin-bottom: 0;
 }
 
-.first-name,
-.last-name{
+.name{
     flex: 1;
     margin-right: 10px;
 }
@@ -17,4 +16,8 @@
 }
 .name-input-container{
     outline: none;
+}
+
+.name.hidden{
+    display: none !important;
 }

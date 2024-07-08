@@ -16,6 +16,11 @@
     flex: 1;
     margin-right: 10px;
 }
-.other .city.last{
+.other .city-last{
+    flex: 1;
     margin-right: 0px;
+}
+
+.hidden{
+    display: none !important;
 }

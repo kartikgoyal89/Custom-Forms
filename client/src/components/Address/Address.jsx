@@ -11,11 +11,33 @@ const Address = ({
   text,
   placeholderText,
   onClick,
+  VisibleOptions,
 }) => {
   const { items } = useItems();
+
+  const [visibleElements, setVisibleElements] = useState({
+    street1: true,
+    street2: true,
+    city: true,
+    state: true,
+    postal: true,
+    country: true,
+  });
   const handleShortTextClick = () => {
     onClick(id);
   };
+  useEffect(() => {
+    // Update visibleElements state based on VisibleOptions
+    const updatedVisibleElements = {
+      ...visibleElements,
+    };
+    VisibleOptions.forEach((opt) => {
+      if (updatedVisibleElements.hasOwnProperty(opt.value)) {
+        updatedVisibleElements[opt.value] = opt.checked;
+      }
+    });
+    setVisibleElements(updatedVisibleElements);
+  }, [VisibleOptions]);
   const defaultShortTextStyle = {
     fontSize: "20px",
     fontWeight: "normal",
@@ -53,7 +75,11 @@ const Address = ({
       </h6>
 
       <div className="address-input-container">
-        <div className="street">
+        <div
+          className={`street ${
+            visibleElements.street1 === false ? "hidden" : ""
+          }`}
+        >
           <p className="mb-1">
             {style?.Street1 !== undefined ? style?.Street1 : "Street Address"}
             {elementStyle.required && <span style={{ color: "red" }}> *</span>}
@@ -61,12 +87,17 @@ const Address = ({
           <input
             readOnly
             type="text"
+            required={style?.required}
             placeholder={
               style?.pStreet1 !== undefined ? style?.pStreet1 : "Street Address"
             }
           />
         </div>
-        <div className="street">
+        <div
+          className={`street ${
+            visibleElements.street2 === false ? "hidden" : ""
+          }`}
+        >
           <p className="mb-1">
             {style?.Street2 !== undefined
               ? style?.Street2
@@ -75,6 +106,7 @@ const Address = ({
           <input
             readOnly
             type="text"
+            required={style?.required}
             placeholder={
               style?.pStreet2 !== undefined
                 ? style?.pStreet2
@@ -83,7 +115,9 @@ const Address = ({
           />
         </div>
         <div className="other">
-          <div className="city">
+          <div
+            className={`city ${visibleElements.city === false ? "hidden" : ""}`}
+          >
             <p className="mb-1">
               {style?.city !== undefined ? style?.city : "City"}
               {elementStyle.required && (
@@ -91,12 +125,17 @@ const Address = ({
               )}
             </p>
             <input
+              required={style?.required}
               readOnly
               type="text"
               placeholder={style?.pcity !== undefined ? style?.pcity : "City"}
             />
           </div>
-          <div className="city last">
+          <div
+            className={`city-last ${
+              visibleElements.state === false ? "hidden" : ""
+            }`}
+          >
             <p className="mb-1">
               {style?.province !== undefined
                 ? style?.province
@@ -106,6 +145,7 @@ const Address = ({
               )}
             </p>
             <input
+              required={style?.required}
               readOnly
               type="text"
               placeholder={
@@ -117,7 +157,11 @@ const Address = ({
           </div>
         </div>
         <div className="other">
-          <div className="city ">
+          <div
+            className={`city ${
+              visibleElements.postal === false ? "hidden" : ""
+            }`}
+          >
             <p className="mb-1">
               {style?.postal !== undefined ? style?.postal : "Postal/Zip Code"}
               {elementStyle.required && (
@@ -127,6 +171,7 @@ const Address = ({
             <input
               readOnly
               type="text"
+              required={style?.required}
               placeholder={
                 style?.ppostal !== undefined
                   ? style?.ppostal
@@ -134,7 +179,11 @@ const Address = ({
               }
             />
           </div>
-          <div className="city last">
+          <div
+            className={`city-last ${
+              visibleElements.country === false ? "hidden" : ""
+            }`}
+          >
             <p className="mb-1">
               {style?.country !== undefined ? style?.country : "Country"}
               {elementStyle.required && (
@@ -144,6 +193,7 @@ const Address = ({
             <input
               readOnly
               type="text"
+              required={style?.required}
               placeholder={
                 style?.pcountry !== undefined ? style?.pcountry : "Country"
               }

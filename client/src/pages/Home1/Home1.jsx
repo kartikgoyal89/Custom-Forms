@@ -65,18 +65,12 @@ const Home1 = () => {
   const [formColor, setFormColor] = useState("#FFFFFF");
   const [buttonColor, setButtonColor] = useState("");
 
-  // SLIDE STATE
   const [slide, setSlide] = useState("hide");
-  // TOGGLE STATE
-  const [isToggled, setIsToggled] = useState(false);
 
-  // COLOR STATE
   const [slideColor, setSlideColor] = useState("#000000");
 
-  // DESIGN STATE
-  const [activeTab, setActiveTab] = useState("general");
+  const [displayToggle, setDisplayToggle] = useState(false);
 
-  // SUBMIT BUTTON STATE
   const [submit, setSubmit] = useState("Submit");
   const [btnHeight, setBtnHeight] = useState(42);
   const [btnFontSize, setBtnFontSize] = useState(20);
@@ -92,25 +86,16 @@ const Home1 = () => {
     text: "Submit",
   });
 
-  // ==================================================================
+  // =========s=========================================================
   // MAIN STYLING
   const [mainId, setMainId] = useState(null);
   const [mainType, setMainType] = useState("");
   const [mainText, setMainText] = useState("");
   const [mainStyle, setMainStyle] = useState({});
   const [design, setDesign] = useState("general");
-
-  const [visibleOptions, setVisibleOptions] = useState([]);
+  const [activeTab, setActiveTab] = useState("general");
 
   const [visibleArray, setVisibleArray] = useState([]);
-
-  useEffect(() => {
-    console.log(visibleArray);
-  }, [visibleArray]);
-
-  // useEffect(() => {
-  // console.log(visibleSet);
-  // }, [visibleSet]);
 
   // ==================================================================
 
@@ -137,8 +122,8 @@ const Home1 = () => {
     setSlide("show");
     setMainType("button");
     setMainId(0);
-    setDesign("general");
     setActiveTab("general");
+    setDesign("general");
     setMainText(submit ? submit : "Submit");
     ({
       backgroundColor: primaryColor,
@@ -159,6 +144,8 @@ const Home1 = () => {
       }
     });
     setSlide("show");
+    setActiveTab("general");
+    setDesign("general");
   };
 
   const handleStyleChange = (id, name, value) => {
@@ -196,44 +183,6 @@ const Home1 = () => {
     PiMapPinBold: PiMapPinBold,
   };
 
-  // const handleVisibleOptionsChange = (option) => {
-  //   setVisibleOptions((prevOptions) => {
-  //     const updatedOptions = prevOptions.map((opt) => {
-  //       if (opt.id === option.id) {
-  //         return { ...opt, checked: !opt.checked };
-  //       }
-  //       return opt;
-  //     });
-  //     const selectedOptions = updatedOptions.filter((opt) => opt.checked);
-  //     setVisibleArray(selectedOptions);
-  //     return updatedOptions;
-  //   });
-  // };
-  const handleVisibleOptionsChange = (option) => {
-    setVisibleOptions((prevOptions) => {
-      const updatedOptions = prevOptions.map((opt) =>
-        opt.id === option.id ? { ...opt, checked: !opt.checked } : opt
-      );
-      const selectedOptions = updatedOptions.filter((opt) => opt.checked);
-      setVisibleArray(selectedOptions);
-      return updatedOptions;
-    });
-
-    setVisibleSet((prevSet) => {
-      const updatedSet = new Set(prevSet);
-      if (updatedSet.has(option.id)) {
-        updatedSet.delete(option.id);
-      } else {
-        updatedSet.add(option.id);
-      }
-      return updatedSet;
-    });
-  };
-
-  const handleChange = () => {
-    setIsToggled(!isToggled);
-  };
-
   const renderProperties = (properties, id) => {
     const element = items.find((item) => item.id === id);
     return Object.keys(properties).map((key, index) => {
@@ -266,7 +215,13 @@ const Home1 = () => {
                   className={`${
                     property.isHeading ? "heading-cross" : "display-none"
                   }`}
-                  onClick={() => setSlide("hide")}
+                  onClick={() => {
+                    setSlide("hide");
+                    setTimeout(() => {
+                      setDesign("general");
+                      setActiveTab("general");
+                    }, 200);
+                  }}
                 />
               </div>
               <hr className={`${property.isHeading ? "hr" : "display-none"}`} />
@@ -359,7 +314,13 @@ const Home1 = () => {
                 className={`${
                   property.isHeading ? "heading-cross" : "display-none"
                 }`}
-                onClick={() => setSlide("hide")}
+                onClick={() => {
+                  setSlide("hide");
+                  setTimeout(() => {
+                    setDesign("general");
+                    setActiveTab("general");
+                  }, 200);
+                }}
               />
             </div>
             <hr className={`${property.isHeading ? "hr" : "display-none"}`} />
@@ -433,17 +394,19 @@ const Home1 = () => {
                 >
                   {property?.label1}
                 </p>
-                <p
-                  className={`mb-0 ${
-                    design === "advanced" ? "active-design" : ""
-                  }`}
-                  onClick={() => {
-                    setDesign("advanced");
-                    setActiveTab("advanced");
-                  }}
-                >
-                  {property?.label2}
-                </p>
+                {property?.label2 && (
+                  <p
+                    className={`mb-0 ${
+                      design === "advanced" ? "active-design" : ""
+                    }`}
+                    onClick={() => {
+                      setDesign("advanced");
+                      setActiveTab("advanced");
+                    }}
+                  >
+                    {property?.label2}
+                  </p>
+                )}
               </div>
               <hr className="m-0 mt-0" />
             </div>
@@ -462,27 +425,11 @@ const Home1 = () => {
               <div className="w-100">
                 {Object.values(property.options).map((option, optionKey) => {
                   {
-                    {
-                      console.log(option);
-                      {
-                        /* visibleSet.add({ */
-                      }
-                      {
-                        /* id: option.id, */
-                      }
-                      {
-                        /* value: option.value, */
-                      }
-                      {
-                        /* checked: option.checked, */
-                      }
-                      {
-                        /* }); */
-                      }
-                    }
-                  }
-                  {
-                    visibleArray.push(option);
+                    let Obj = {
+                      id: option.id,
+                      value: option.value,
+                      checked: option.checked,
+                    };
                   }
                   return (
                     <div
@@ -493,24 +440,33 @@ const Home1 = () => {
                         style={{ width: "20px" }}
                         type="checkbox"
                         value={option}
-                        defaultChecked={option?.checked}
-                        onChange={(e) => {
-                          handleStyleChange(
-                            id,
-                            `${option?.value}`,
-                            !e.target.checked
-                          );
-                          // setVisibleOptions(!option.checked);
-                          {
-                            console.log(
-                              option.id,
-                              option.value,
-                              !option.checked
+                        defaultChecked={option.checked}
+                        onClick={() => {
+                          setDisplayToggle(!displayToggle);
+                          setVisibleArray((prevArray) => {
+                            const index = prevArray.findIndex(
+                              (item) => item.id === option.id
                             );
-                            console.log(visibleArray);
-                            console.log(visibleArray[option.id]);
-                            // setVisibleArray({...visibleArray,{visibleArray[option.id]}})
-                          }
+
+                            if (index !== -1) {
+                              const updatedArray = [...prevArray];
+                              updatedArray[index] = {
+                                id: option.id,
+                                checked: !prevArray[index].checked,
+                                value: option.value,
+                              };
+                              return updatedArray;
+                            } else {
+                              return [
+                                ...prevArray,
+                                {
+                                  id: option.id,
+                                  checked: !option.checked,
+                                  value: option.value,
+                                },
+                              ];
+                            }
+                          });
                         }}
                       />
                       <label>{option?.label}</label>
@@ -619,6 +575,7 @@ const Home1 = () => {
                       lastNameInput={item.text}
                       firstPlaceholder={item.text}
                       lastPlaceholder={item.text}
+                      VisibleOptions={visibleArray}
                     />
                   ) : item?.type === "phone" ? (
                     <Phone
@@ -651,6 +608,7 @@ const Home1 = () => {
                       text={item.text}
                       placeholderText={item.text}
                       defaultVal={item?.defaultVal}
+                      VisibleOptions={visibleArray}
                     />
                   )
                 )}

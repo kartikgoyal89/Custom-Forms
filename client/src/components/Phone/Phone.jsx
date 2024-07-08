@@ -50,7 +50,7 @@ const Phone = ({
         {style?.fieldLabel !== undefined ? style?.fieldLabel : "Phone"}
         {elementStyle.required && <span style={{ color: "red" }}> *</span>}
       </h6>
-      <PhoneInput onChange={setValue} />
+      <PhoneInput required={style?.required} onChange={setValue} />
     </div>
   );
 };
